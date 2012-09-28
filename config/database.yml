@@ -1,0 +1,7 @@
+adapter: postgresql
+database: cactus
+username: deploy
+password: n3xtm0v3m3nt
+host: localhost
+encoding: utf8
+
