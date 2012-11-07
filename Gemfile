@@ -5,6 +5,7 @@ gem "activerecord"
 gem "libxml-ruby"
 gem "debugger"
 gem "bundler"
+gem "activerecord"
 # Database
 gem "pg"
 
