@@ -6,6 +6,7 @@ gem "libxml-ruby"
 gem "debugger"
 gem "bundler"
 gem "activerecord"
+gem "bzip2-ruby"
 # Database
 gem "pg"
 

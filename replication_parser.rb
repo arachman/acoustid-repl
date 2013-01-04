@@ -37,11 +37,9 @@ class ReplicationParser
         col_val = column.content
         query.add_column_value(col_name, col_val)
       end
-
+      
       puts query.emit_query
     end
   end
 end
 
-rp = ReplicationParser.new("acoustid-musicbrainz-update-4511.xml")
-rp.parse

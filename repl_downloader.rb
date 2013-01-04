@@ -1,4 +1,5 @@
 require 'open-uri'
+require 'bzip2'
 
 class ReplDownloader
 
@@ -9,13 +10,25 @@ class ReplDownloader
   @@ext = ".xml.bz2"
   
   def self.download_latest_repl
-    
-    open( "#{@@url}#{@@file_path}#{next_version_file_name}" , 'rb') do |update|
-      File.open("#{next_version_file_name}", 'wb') do |file|
-        file.write(update.read)
+    download_file_name = next_version_file_name
+    begin
+      open( "#{@@url}#{@@file_path}#{download_file_name}" , 'rb') do |update|
+        File.open("#{next_version_file_name}", 'wb') do |file|
+          file.write(update.read)
+        end
       end
+      update_version_file
+    rescue OpenURI::HTTPError => e
+      download_file_name = nil
+      return
     end
-    update_version_file
+    xml_f = File.open(download_file_name.gsub(/\.bz2/, ''), 'wb')
+    Bzip2::Reader.open(download_file_name) { |bz2_f|
+      xml_f.write(bz2_f.read)
+    }
+    xml_f.close
+    File.delete(download_file_name)
+    download_file_name.gsub(/\.bz2/, '')
   end
 
   def self.get_next_version
@@ -54,4 +67,3 @@ class ReplDownloader
   end
 end
 
-ReplDownloader.download_latest_repl
