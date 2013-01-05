@@ -52,4 +52,8 @@ module Query
       return "\'#{col_val}\'"
     end
   end
+
+  def execute_sql
+    @@conn.execute(emit_query)  
+  end
 end
