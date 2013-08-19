@@ -6,6 +6,6 @@ while(true)
     break
   end
   rp = ReplicationParser.new(replication_file)
-  rp.parse
+  rp.parse_execute
   File.delete(replication_file)
 end
